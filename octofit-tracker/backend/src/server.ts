@@ -27,3 +27,4 @@ await connectDatabase();
 app.listen(port, () => {
   console.log(`OctoFit Tracker API listening at ${apiBaseUrl}`);
 });
+
