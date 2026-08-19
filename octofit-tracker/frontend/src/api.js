@@ -1,8 +1,19 @@
+const hostname = window.location.hostname;
+
+export const apiBaseUrl = hostname.includes('app.github.dev')
+  ? `https://${hostname.replace(
+      '-5173.app.github.dev',
+      '-8000.app.github.dev'
+    )}`
+  : 'http://localhost:8000';
+  
+/*
 const codespaceName = import.meta.env.VITE_CODESPACE_NAME?.trim();
 
 export const apiBaseUrl = codespaceName
   ? `https://${codespaceName}-8000.app.github.dev`
   : 'http://localhost:8000';
+*/
 
 export async function fetchCollection(resource) {
   const response = await fetch(`${apiBaseUrl}/api/${resource}/`);
