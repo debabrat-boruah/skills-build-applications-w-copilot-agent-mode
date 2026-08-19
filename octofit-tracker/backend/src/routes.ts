@@ -30,27 +30,27 @@ const teams = createCollectionHandlers(Team);
 const activities = createCollectionHandlers(Activity);
 const workouts = createCollectionHandlers(Workout);
 
-router.get('/users/', users.list);
-router.post('/users/', users.create);
-router.get('/teams/', teams.list);
-router.post('/teams/', teams.create);
-router.get('/activities/', activities.list);
-router.post('/activities/', activities.create);
-router.get('/leaderboard/', async (_request, response) => {
+router.get('/users', users.list);
+router.post('/users', users.create);
+router.get('/teams', teams.list);
+router.post('/teams', teams.create);
+router.get('/activities', activities.list);
+router.post('/activities', activities.create);
+router.get('/leaderboard', async (_request, response) => {
   try {
     response.json(await Leaderboard.find().sort({ points: -1 }).populate('userId', 'username name').lean());
   } catch (error) {
     response.status(503).json({ error: 'Database unavailable' });
   }
 });
-router.post('/leaderboard/', async (request, response) => {
+router.post('/leaderboard', async (request, response) => {
   try {
     response.status(201).json(await Leaderboard.create(request.body));
   } catch (error) {
     response.status(400).json({ error: 'Invalid request', details: error instanceof Error ? error.message : error });
   }
 });
-router.get('/workouts/', workouts.list);
-router.post('/workouts/', workouts.create);
+router.get('/workouts', workouts.list);
+router.post('/workouts', workouts.create);
 
 export default router;
